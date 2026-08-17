@@ -17,6 +17,7 @@ def main() -> None:
     run("run_pipeline.py")
     run("build_bac_jpm_case_study.py")
     run("run_rv_backtest.py")
+    run("build_static_dashboard.py")
     print("\nResearch outputs refreshed successfully.")
 
 

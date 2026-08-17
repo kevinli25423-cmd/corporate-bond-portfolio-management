@@ -63,6 +63,35 @@ Detailed research notes:
 - [Methodology](docs/methodology.md)
 - [Data contract](docs/data_contract.md)
 
+## Research dashboard
+
+A static presentation dashboard is generated at [`docs/index.html`](docs/index.html). It is designed for GitHub Pages and summarizes the latest synthetic research outputs in one page:
+
+- BAC/JPM relative-value signal and decomposition
+- Issuer-level OAS, RV, expected return, and action
+- Current vs model portfolio allocation
+- Portfolio DV01 / CS01 snapshot
+- Normal / Slowdown / Crisis stress results
+- 5D / 20D / 60D chronological validation
+- Independent-event backtest statistics
+- Links to the case study, validation notes, methodology, and data contract
+
+Refresh the dashboard together with all research outputs:
+
+```bash
+python scripts/build_research_outputs.py
+```
+
+Or rebuild only the static dashboard after the other outputs already exist:
+
+```bash
+python scripts/build_static_dashboard.py
+```
+
+When GitHub Pages is configured to deploy the `docs/` folder on the `main` branch, the dashboard is available at:
+
+`https://kevinli25423-cmd.github.io/corporate-bond-portfolio-management/`
+
 ## What the project implements
 
 - Security master and point-in-time data architecture
@@ -176,6 +205,7 @@ streamlit run app.py
 │   ├── demo/
 │   └── output/
 ├── docs/
+│   ├── index.html                 # static GitHub Pages dashboard
 │   ├── bac_jpm_case_study.md
 │   ├── bac_jpm_backtest.md
 │   ├── data_contract.md
@@ -187,6 +217,7 @@ streamlit run app.py
 ├── scripts/
 │   ├── build_bac_jpm_case_study.py
 │   ├── build_research_outputs.py
+│   ├── build_static_dashboard.py
 │   ├── generate_demo_data.py
 │   ├── run_pipeline.py
 │   └── run_rv_backtest.py
