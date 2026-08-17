@@ -1,0 +1,2 @@
+as_of,bac_security,jpm_security,bac_oas_bp,jpm_oas_bp,market_diff_bp,historical_mean_diff_bp,historical_z,cds_diff_bp,fair_diff_bp,cds_bond_rv_bp,regression_rv_bp,blended_rv_bp,expected_return_1m_bp,model_action
+2026-08-14,BAC_3,JPM_3,84.43218761539943,67.72096666150533,16.7112209538941,12.58214175514827,2.028673136445163,7.508368411062278,7.920755345470275,8.790465608423823,4.565568535971664,6.568894737891284,61.49779684463803,Add BAC / Reduce JPM

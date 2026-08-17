@@ -1,0 +1,2 @@
+horizon_days,signal_threshold_abs_z,events,avg_signed_convergence_bp,median_signed_convergence_bp,gross_hit_rate,avg_gross_pair_return_bp,median_gross_pair_return_bp,avg_net_pair_return_bp,median_net_pair_return_bp,net_positive_rate,avg_realized_convergence_ratio,avg_clipped_convergence_ratio,pair_transaction_cost_bp
+20,1.0,9,2.984502547458012,3.563683577916578,0.8888888888888888,13.454437698786506,16.85936990247458,5.454437698786506,8.85936990247458,0.6666666666666666,0.9781856878478629,0.7183405213090752,8.0

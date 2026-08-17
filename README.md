@@ -4,7 +4,7 @@ An independent personal research project exploring institutional U.S. investment
 
 The framework connects:
 
-**Credit Analysis → Relative Value → Risk Decomposition → Expected Return → Portfolio Optimization → Stress Testing → Portfolio Construction → Trading → P&L Attribution**
+**Credit Analysis → Relative Value → Risk Decomposition → Expected Return → Portfolio Optimization → Stress Testing → Portfolio Construction → Trading → P&L Attribution → Validation**
 
 The central research question is:
 
@@ -20,6 +20,48 @@ The repository simulates a **$100 million Financials sleeve** within a broader i
 - Wells Fargo
 
 Named issuers are used solely as public-market examples. All bond-level spreads, CDS levels, holdings, liquidity observations, expected returns, and scenario results in `data/demo/` are synthetic and illustrative.
+
+## Research results — synthetic demo
+
+The latest synthetic BAC/JPM case illustrates the full decision process rather than treating a wide spread as an automatic buy signal.
+
+| Latest case metric | Result |
+|---|---:|
+| BAC representative OAS | 84.43 bp |
+| JPM representative OAS | 67.72 bp |
+| BAC-JPM market differential | 16.71 bp |
+| Lagged historical mean differential | 12.58 bp |
+| Historical z-score | +2.03σ |
+| CDS/bond RV residual | +8.79 bp |
+| Cross-sectional regression residual | +4.57 bp |
+| Blended RV signal | **+6.57 bp** |
+| Expected 1M return | **61.50 bp** |
+| Model action | **Add BAC / Reduce JPM** |
+
+![BAC-JPM historical relative-value z-score](docs/figures/bac_jpm_zscore.png)
+
+The proposed $10M BAC add / approximately $10M JPM reduction is DV01-matched. In the synthetic stress framework, the trade improves the Normal scenario slightly but increases the Slowdown loss by about 0.13 percentage points and the Crisis loss by about 0.50 percentage points. This is why the framework uses position limits and a portfolio overlay rather than allowing the relative-value signal to determine size by itself.
+
+### Chronological RV validation
+
+The BAC/JPM signal is also tested against subsequent pair-spread changes using a lagged historical benchmark.
+
+| Forward horizon | Signal observations | Avg signed convergence | Convergence hit rate | Avg gross pair return |
+|---|---:|---:|---:|---:|
+| 5D | 56 | 1.50 bp | 80.4% | 6.87 bp |
+| 20D | 47 | 2.73 bp | 87.2% | 12.37 bp |
+| 60D | 42 | 3.33 bp | 88.1% | 15.19 bp |
+
+A separate non-overlapping 20-business-day event test produces **9 independent threshold-crossing events**, an **88.9% gross convergence hit rate**, and an average approximate **5.45 bp net pair return** after an explicit 8 bp pair implementation-cost assumption. These results are properties of the synthetic dataset, not a live historical track record.
+
+![Independent BAC-JPM event returns](docs/figures/bac_jpm_event_returns_20d.png)
+
+Detailed research notes:
+
+- [BAC vs JPM relative-value case study](docs/bac_jpm_case_study.md)
+- [BAC vs JPM chronological signal validation](docs/bac_jpm_backtest.md)
+- [Methodology](docs/methodology.md)
+- [Data contract](docs/data_contract.md)
 
 ## What the project implements
 
@@ -37,6 +79,8 @@ Named issuers are used solely as public-market examples. All bond-level spreads,
 - Portfolio construction overlay after optimization
 - Trade sizing and trade blotter
 - One-month P&L attribution and thesis validation
+- Chronological pair-RV validation and non-overlapping event backtest
+- Reproducible research charts and Markdown case-study outputs
 - Optional Streamlit dashboard
 
 ## Analytical philosophy
@@ -67,34 +111,58 @@ Portfolio Allocation
 Stress Testing
         ↓
 Attribution
+        ↓
+Out-of-Sample Validation
 ```
 
 Portfolio optimization is treated as a decision-support layer, not as an automatic final allocation rule.
 
 ## Quick start
 
+Create and activate an environment, then install the core research dependencies:
+
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+```
+
+Run the portfolio pipeline:
+
+```bash
 python scripts/generate_demo_data.py
 python scripts/run_pipeline.py
 ```
 
-Optional dashboard:
+Build the BAC/JPM case study and RV validation outputs:
 
 ```bash
-# Optional dashboard dependencies
-pip install -r requirements-dashboard.txt
+python scripts/build_bac_jpm_case_study.py
+python scripts/run_rv_backtest.py
+```
 
-# Launch the dashboard
-streamlit run app.py
+Or refresh the full pipeline, case study, and backtest together:
+
+```bash
+python scripts/build_research_outputs.py
 ```
 
 Run tests:
 
 ```bash
 python -m pytest tests -v
+```
+
+Optional dashboard dependencies:
+
+```bash
+pip install -r requirements-dashboard.txt
+```
+
+Launch the dashboard:
+
+```bash
+streamlit run app.py
 ```
 
 ## Repository structure
@@ -108,13 +176,20 @@ python -m pytest tests -v
 │   ├── demo/
 │   └── output/
 ├── docs/
+│   ├── bac_jpm_case_study.md
+│   ├── bac_jpm_backtest.md
 │   ├── data_contract.md
-│   └── methodology.md
+│   ├── methodology.md
+│   ├── figures/
+│   └── results/
 ├── notebooks/
 │   └── 01_end_to_end_research.ipynb
 ├── scripts/
+│   ├── build_bac_jpm_case_study.py
+│   ├── build_research_outputs.py
 │   ├── generate_demo_data.py
-│   └── run_pipeline.py
+│   ├── run_pipeline.py
+│   └── run_rv_backtest.py
 ├── src/
 │   └── corporate_bond_pm/
 │       ├── attribution.py
@@ -125,8 +200,13 @@ python -m pytest tests -v
 │       ├── relative_value.py
 │       ├── risk.py
 │       ├── stress.py
-│       └── trading.py
+│       ├── trading.py
+│       └── validation.py
 └── tests/
+    ├── test_expected_return.py
+    ├── test_risk.py
+    ├── test_rv.py
+    └── test_validation.py
 ```
 
 ## Core formulas
@@ -200,6 +280,17 @@ CS01 ≈ SpreadDuration × MarketValue × 0.0001
 ```
 
 Rates exposure is also decomposed across 2Y, 3Y, 5Y, 7Y, and 10Y key-rate nodes.
+
+## Validation design
+
+The validation module follows chronological rather than random train/test logic. The lagged z-score is formed using only information available at the signal date; future 5D, 20D, and 60D pair changes are attached afterward for evaluation.
+
+Two views are reported:
+
+1. **Daily signal diagnostics** — all days where the absolute z-score exceeds a threshold.
+2. **Independent event backtest** — only threshold crossings, with overlapping holding periods blocked.
+
+This distinction prevents a sequence of consecutive signal days from being presented as independent trades.
 
 ## Stress testing
 
