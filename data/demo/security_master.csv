@@ -1,0 +1,21 @@
+security_id,issuer,issuer_name,cusip,coupon_pct,maturity,issue_date,seniority,callable,issue_size_mm,rating,representative
+JPM_1,JPM,JPMorgan Chase,SYNJPM01,4.0309,2029-02-14,2025-10-10,Senior Unsecured,False,1826,A,False
+JPM_2,JPM,JPMorgan Chase,SYNJPM02,4.4394,2030-02-14,2025-06-04,Senior Unsecured,False,2180,A,False
+JPM_3,JPM,JPMorgan Chase,SYNJPM03,4.7082,2031-08-16,2025-01-27,Senior Unsecured,False,2443,A,True
+JPM_4,JPM,JPMorgan Chase,SYNJPM04,5.0383,2033-02-14,2024-09-22,Senior Unsecured,False,2821,A,False
+JPM_5,JPM,JPMorgan Chase,SYNJPM05,5.2611,2034-08-16,2024-05-17,Senior Unsecured,False,3134,A,False
+BAC_1,BAC,Bank of America,SYNBAC01,4.2031,2029-02-14,2025-10-10,Senior Unsecured,False,1983,A,False
+BAC_2,BAC,Bank of America,SYNBAC02,4.4582,2030-02-14,2025-06-04,Senior Unsecured,False,2309,A,False
+BAC_3,BAC,Bank of America,SYNBAC03,4.7306,2031-08-16,2025-01-27,Senior Unsecured,False,2416,A,True
+BAC_4,BAC,Bank of America,SYNBAC04,4.997,2033-02-14,2024-09-22,Senior Unsecured,False,2927,A,False
+BAC_5,BAC,Bank of America,SYNBAC05,5.2334,2034-08-16,2024-05-17,Senior Unsecured,False,3256,A,False
+C_1,C,Citigroup,SYNC01,4.2919,2029-02-14,2025-10-10,Senior Unsecured,False,1936,A,False
+C_2,C,Citigroup,SYNC02,4.5495,2030-02-14,2025-06-04,Senior Unsecured,False,2251,A,False
+C_3,C,Citigroup,SYNC03,4.7723,2031-08-16,2025-01-27,Senior Unsecured,False,2653,A,True
+C_4,C,Citigroup,SYNC04,5.0715,2033-02-14,2024-09-22,Senior Unsecured,False,3029,A,False
+C_5,C,Citigroup,SYNC05,5.1934,2034-08-16,2024-05-17,Senior Unsecured,False,3277,A,False
+WFC_1,WFC,Wells Fargo,SYNWFC01,4.2234,2029-02-14,2025-10-10,Senior Unsecured,False,1968,A,False
+WFC_2,WFC,Wells Fargo,SYNWFC02,4.4728,2030-02-14,2025-06-04,Senior Unsecured,False,2292,A,False
+WFC_3,WFC,Wells Fargo,SYNWFC03,4.7705,2031-08-16,2025-01-27,Senior Unsecured,False,2599,A,True
+WFC_4,WFC,Wells Fargo,SYNWFC04,5.0384,2033-02-14,2024-09-22,Senior Unsecured,False,3033,A,False
+WFC_5,WFC,Wells Fargo,SYNWFC05,5.1352,2034-08-16,2024-05-17,Senior Unsecured,False,3295,A,False

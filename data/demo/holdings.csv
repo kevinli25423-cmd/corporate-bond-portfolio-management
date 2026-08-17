@@ -1,0 +1,6 @@
+asset,security_id,issuer,weight
+JPM,JPM_3,JPM,0.3
+BAC,BAC_3,BAC,0.15
+C,C_3,C,0.2
+WFC,WFC_3,WFC,0.2
+Cash,CASH,Cash,0.15
