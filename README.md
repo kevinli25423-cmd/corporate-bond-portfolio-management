@@ -92,6 +92,20 @@ When GitHub Pages is configured to deploy the `docs/` folder on the `main` branc
 
 `https://kevinli25423-cmd.github.io/corporate-bond-portfolio-management/`
 
+## V2 real-data module
+
+The repository includes a public-data BAC/JPM pair workflow using user-exported FINRA secondary-market trades plus official U.S. Treasury daily par-yield curves. The first real pair uses JPM CUSIP `46647PEU6` and BAC CUSIP `06051GMT3`. Because both are fixed-to-floating callable notes, the public implementation uses **yield to first par call minus interpolated Treasury** and explicitly labels the result a proxy spread rather than OAS.
+
+Setup and methodology: [V2 Step 1 — real BAC/JPM data](docs/real_data_step1.md).
+
+After saving the two FINRA CSV exports under `data/raw/trace/`, run:
+
+```bash
+python scripts/build_real_bac_jpm_pair.py
+```
+
+Raw FINRA exports and processed real-data CSVs are ignored by Git by default.
+
 ## What the project implements
 
 - Security master and point-in-time data architecture

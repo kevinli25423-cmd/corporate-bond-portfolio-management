@@ -1,0 +1,49 @@
+{
+  "pair_name": "CITI_JPM_real_ytc_treasury",
+  "spread_measure": "yield_to_first_par_call_minus_interpolated_treasury",
+  "price_method": "median",
+  "historical_window": 252,
+  "signal_threshold_abs_z": 1.0,
+  "strong_signal_threshold_abs_z": 2.0,
+  "forward_horizons": [
+    5,
+    20,
+    60
+  ],
+  "pair_transaction_cost_bp": 8.0,
+  "securities": {
+    "CITI": {
+      "issuer": "Citigroup Inc.",
+      "cusip": "172967ME8",
+      "trace_symbol": "C4808747",
+      "coupon_rate": 0.0398,
+      "issue_date": "2019-03-20",
+      "first_par_call_date": "2029-03-20",
+      "maturity_date": "2030-03-20",
+      "fixed_rate_end": "2029-03-20",
+      "floating_spread_bp": 133.8,
+      "issue_size_usd": 2500000000,
+      "ranking": "Senior",
+      "coupon_frequency": 2,
+      "day_count": "30/360",
+      "source": "Citigroup Inc. March 13, 2019 pricing term sheet / SEC Rule 433 filing"
+    },
+    "JPM": {
+      "issuer": "JPMorgan Chase & Co.",
+      "cusip": "46647PBE5",
+      "coupon_rate": 0.02739,
+      "issue_date": "2019-09-12",
+      "first_par_call_date": "2029-10-15",
+      "maturity_date": "2030-10-15",
+      "fixed_rate_end": "2029-10-15",
+      "floating_spread_bp": 151.0,
+      "issue_size_usd": 3750000000,
+      "ranking": "Senior",
+      "coupon_frequency": 2,
+      "day_count": "30/360",
+      "source": "JPMorgan Chase & Co. November 8, 2019 reopening pricing term sheet / SEC Rule 433 filing"
+    }
+  },
+  "validation_primary_horizon": 20,
+  "min_independent_events": 5
+}

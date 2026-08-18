@@ -1,0 +1,27 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Real CITI / JPM Relative-Value Dashboard</title>
+<style>
+:root{--bg:#07111f;--panel:#0d1b2a;--line:#20364b;--text:#eef5fb;--muted:#91a8bc;--a:#50b8ff;--g:#43d6ad;}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#06101c,#081522);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+main{width:min(1160px,calc(100% - 28px));margin:auto;padding:54px 0 70px}h1{font-size:48px;line-height:1.05;margin:8px 0 12px}h2{margin-top:38px}p,.muted{color:var(--muted);line-height:1.55}.eyebrow{color:var(--a);font-weight:800;letter-spacing:.13em;text-transform:uppercase;font-size:12px}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:24px 0}.card{background:rgba(13,27,42,.9);border:1px solid var(--line);border-radius:15px;padding:16px}.k{font-size:11px;color:var(--muted);text-transform:uppercase}.v{font-size:26px;font-weight:800;margin-top:8px}.decision{border-color:rgba(80,184,255,.5);background:linear-gradient(120deg,rgba(80,184,255,.12),rgba(67,214,173,.06))}.decisionline{font-size:20px;font-weight:800;margin-top:6px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}img{width:100%;display:block;border-radius:12px;background:white}table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid var(--line);font-size:13px}th{text-align:left;color:var(--muted);font-size:11px;text-transform:uppercase}td:not(:first-child),th:not(:first-child){text-align:right}code{color:#bde5ff}@media(max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}
+</style></head><body><main>
+<div class="eyebrow">Real market case study</div><h1>CITI vs JPM Relative Value</h1>
+<p>Local FINRA observations + official U.S. Treasury curve. Raw FINRA files stay local; this page contains only derived analytics.</p>
+<div class="kpis">
+<div class="card"><div class="k">As of</div><div class="v">2026-08-17</div></div>
+<div class="card"><div class="k">CITI YTC−Treasury</div><div class="v">58.86 bp</div></div>
+<div class="card"><div class="k">JPM YTC−Treasury</div><div class="v">59.84 bp</div></div>
+<div class="card"><div class="k">CITI − JPM</div><div class="v">-0.98 bp</div></div>
+<div class="card"><div class="k">Lagged z-score</div><div class="v">-1.60σ</div></div>
+<div class="card decision"><div class="k">PM decision</div><div class="v">No trade</div><div class="muted">Validation: Not supported</div></div>
+</div>
+<div class="card decision"><div class="k">Signal → validation → decision</div><div class="decisionline">Watch / Moderate RV · Short CITI / Long JPM → No trade</div><p class="muted">20-observation signal-day average gross return is -3.63 bp with a 38.1% convergence hit rate; mean reversion is not supported.</p></div>
+<div class="grid" style="margin-top:14px"><div class="card"><img src="figures/real_citi_jpm_treasury_spreads.png"><p class="muted">Yield to first par call minus Treasury par yield interpolated to each bond's first par-call date.</p></div><div class="card"><img src="figures/real_citi_jpm_pair_spread.png"><p class="muted">CITI minus JPM Treasury-spread differential with lagged historical benchmark.</p></div></div>
+<div class="card" style="margin-top:14px"><img src="figures/real_citi_jpm_zscore.png"><p class="muted">Signal uses prior 252 aligned observations only. Positive z means CITI is wide relative to JPM.</p></div>
+<h2>5 / 20 / 60 observation validation</h2><div class="card"><table><thead><tr><th>Horizon</th><th>Signal observations</th><th>Avg convergence</th><th>Hit rate</th><th>Avg gross return estimate</th></tr></thead><tbody><tr><td>5 obs</td><td>76</td><td>0.14 bp</td><td>44.7%</td><td>0.39 bp</td></tr><tr><td>20 obs</td><td>63</td><td>-1.22 bp</td><td>38.1%</td><td>-3.63 bp</td></tr><tr><td>60 obs</td><td>23</td><td>-4.41 bp</td><td>4.3%</td><td>-13.13 bp</td></tr></tbody></table></div>
+<h2>Independent event backtest</h2><div class="card"><table><thead><tr><th>Horizon</th><th>Events</th><th>Gross hit rate</th><th>Avg gross return</th><th>Avg net return</th><th>Net-positive</th></tr></thead><tbody><tr><td>5 obs</td><td>3</td><td>33.3%</td><td>-0.93 bp</td><td>-8.93 bp</td><td>0.0%</td></tr><tr><td>20 obs</td><td>1</td><td>100.0%</td><td>5.28 bp</td><td>-2.72 bp</td><td>0.0%</td></tr><tr><td>60 obs</td><td>1</td><td>0.0%</td><td>-19.04 bp</td><td>-27.04 bp</td><td>0.0%</td></tr></tbody></table></div>
+<p class="muted">Spread = YTC to first par call minus interpolated Treasury yield. It is not OAS because the embedded call option is not separately valued. Backtest returns are duration-scaled research estimates, not realized executable P&amp;L.</p>
+</main></body></html>

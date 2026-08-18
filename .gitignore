@@ -17,3 +17,7 @@ data/output/*.csv
 data/output/*.parquet
 data/output/*.html
 !data/output/.gitkeep
+
+# User-exported / derived real fixed-income data
+data/raw/trace/*.csv
+data/processed/real/*.csv
