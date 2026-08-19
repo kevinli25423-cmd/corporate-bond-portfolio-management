@@ -1,0 +1,53 @@
+{
+  "reference_sleeve_usd": 100000000,
+  "citi_face_usd": 10000000,
+  "round_trip_pair_cost_bp": 8.0,
+  "risk_regression_window": 120,
+  "risk_min_regression_observations": 60,
+  "stress_scenarios": {
+    "Rates +50 bp": {
+      "rates_bp": 50.0,
+      "common_credit_bp": 0.0,
+      "citi_idio_bp": 0.0,
+      "jpm_idio_bp": 0.0,
+      "liquidity_bp": 0.0
+    },
+    "Common credit +25 bp": {
+      "rates_bp": 0.0,
+      "common_credit_bp": 25.0,
+      "citi_idio_bp": 0.0,
+      "jpm_idio_bp": 0.0,
+      "liquidity_bp": 0.0
+    },
+    "CITI idiosyncratic +20 bp": {
+      "rates_bp": 0.0,
+      "common_credit_bp": 0.0,
+      "citi_idio_bp": 20.0,
+      "jpm_idio_bp": 0.0,
+      "liquidity_bp": 0.0
+    },
+    "JPM idiosyncratic +20 bp": {
+      "rates_bp": 0.0,
+      "common_credit_bp": 0.0,
+      "citi_idio_bp": 0.0,
+      "jpm_idio_bp": 20.0,
+      "liquidity_bp": 0.0
+    },
+    "Risk-off": {
+      "rates_bp": -25.0,
+      "common_credit_bp": 40.0,
+      "citi_idio_bp": 15.0,
+      "jpm_idio_bp": 10.0,
+      "citi_liquidity_bp": 10.0,
+      "jpm_liquidity_bp": 5.0
+    },
+    "Liquidity widening": {
+      "rates_bp": 0.0,
+      "common_credit_bp": 0.0,
+      "citi_idio_bp": 0.0,
+      "jpm_idio_bp": 0.0,
+      "citi_liquidity_bp": 15.0,
+      "jpm_liquidity_bp": 7.5
+    }
+  }
+}

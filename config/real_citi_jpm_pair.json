@@ -1,7 +1,7 @@
 {
   "pair_name": "CITI_JPM_real_ytc_treasury",
   "spread_measure": "yield_to_first_par_call_minus_interpolated_treasury",
-  "price_method": "median",
+  "price_method": "last_sale",
   "historical_window": 252,
   "signal_threshold_abs_z": 1.0,
   "strong_signal_threshold_abs_z": 2.0,
@@ -45,5 +45,6 @@
     }
   },
   "validation_primary_horizon": 20,
-  "min_independent_events": 5
+  "min_independent_events": 5,
+  "market_data_mode": "finra_trade_activity_eod"
 }

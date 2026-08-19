@@ -1,0 +1,11 @@
+group,metric,unit,CITI,JPM,note
+Capital,CET1 ratio,%,12.8,14.1,Standardized approach
+Earnings,RoTCE,%,13.0,29.0,JPM reported RoTCE; 2Q26 included significant Corporate gains
+Earnings,Net income,$bn,5.831,21.155,Quarterly
+Earnings,Net interest income,$bn,17.125,25.511,Reported firmwide NII
+Scale / Funding,Total assets,$tn,2.8947,5.0151,Period-end
+Scale / Funding,Total loans,$bn,793.658,1542.462,Period-end
+Scale / Funding,Total deposits,$bn,1492.607,2713.7,Period-end
+Asset quality,Net charge-off rate,%,1.23,0.66,Citi total average loans; JPM total retained loans
+Asset quality,Nonaccrual loans / total loans,%,0.41,0.61,Period-end
+Asset quality,Allowance / loans,%,2.54,1.79,Citi ACLL / loans; JPM allowance / retained loans

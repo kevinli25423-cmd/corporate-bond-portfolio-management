@@ -8,6 +8,8 @@ import sys
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from pandas.tseries.holiday import USFederalHolidayCalendar
+from pandas.tseries.offsets import CustomBusinessDay
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -30,17 +32,27 @@ OUT_DIR = ROOT / "data" / "processed" / "real"
 RESULT_DIR = ROOT / "docs" / "results" / "real"
 FIG_DIR = ROOT / "docs" / "figures"
 
+US_SETTLEMENT_DAY = CustomBusinessDay(calendar=USFederalHolidayCalendar())
+
+def standard_tplus1_settlement(trade_date) -> pd.Timestamp:
+    """Standard T+1 settlement-date approximation for U.S. secondary-market bonds."""
+    return (pd.Timestamp(trade_date).normalize() + US_SETTLEMENT_DAY).normalize()
+
 
 def build_security_daily(path: Path, terms: dict, representative: str, args) -> pd.DataFrame:
     trades = load_finra_trade_export(path, date_col=args.date_col, price_col=args.price_col, volume_col=args.volume_col)
     daily = daily_trade_summary(trades, representative=representative)
     bond = FixedToFloatBond.from_dict(terms)
     daily = daily.loc[daily["date"] < pd.Timestamp(bond.first_par_call_date)].copy()
-    ytc = [yield_to_call_from_clean_price(bond, d.date(), p) for d, p in zip(daily["date"], daily["representative_price"])]
+    daily["settlement_date"] = daily["date"].map(standard_tplus1_settlement)
+    ytc = [
+        yield_to_call_from_clean_price(bond, s.date(), p)
+        for s, p in zip(daily["settlement_date"], daily["representative_price"])
+    ]
     daily["ytc_pct"] = 100.0 * np.asarray(ytc)
     daily["duration_to_call"] = [
-        modified_duration_to_call(bond, d.date(), y)
-        for d, y in zip(daily["date"], ytc)
+        modified_duration_to_call(bond, s.date(), y)
+        for s, y in zip(daily["settlement_date"], ytc)
     ]
     daily["issuer"] = terms["issuer"]
     daily["cusip"] = terms["cusip"]

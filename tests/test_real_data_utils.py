@@ -14,3 +14,8 @@ def test_par_price_returns_coupon_yield_on_issue_date():
 def test_treasury_interpolation():
     row = pd.Series({1.0: 4.0, 2.0: 4.2, 3.0: 4.4, 5.0: 4.8})
     assert interpolate_curve_row(row, 2.5) == pytest.approx(4.3)
+
+
+def test_treasury_interpolation_after_csv_reload():
+    row = pd.Series({"1.0": 4.0, "2.0": 4.2, "3.0": 4.4, "5.0": 4.8})
+    assert interpolate_curve_row(row, 2.5) == pytest.approx(4.3)
